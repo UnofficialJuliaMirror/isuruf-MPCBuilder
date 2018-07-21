@@ -11,13 +11,22 @@ sources = [
 ]
 
 # Bash recipe for building across all platforms
-script = raw"""
-cd mpc-$version
+
+script = """cd mpc-$version
+"""*raw"""
+UNAME=`uname`
+if [[ ${UNAME} == MSYS_NT-6.3 ]]; then
+  ln -sf $prefix/bin/libgmp-10.dll $prefix/lib/libgmp.lib
+  ln -sf $prefix/bin/libmpfr-4.dll $prefix/lib/libmpfr.lib
+fi
 ./configure --prefix=$prefix --host=$target --enable-shared --disable-static --with-gmp=$prefix --with-mpfr=$prefix
 make -j
 make install
+if [[ ${UNAME} == MSYS_NT-6.3 ]]; then
+  rm -f $prefix/lib/libgmp.lib
+  rm -f $prefix/lib/libmpfr.lib
+fi
 """
-
 # These are the platforms we will build for by default, unless further
 # platforms are passed in on the command line
 platforms = [
