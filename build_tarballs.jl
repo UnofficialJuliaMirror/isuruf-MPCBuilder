@@ -4,7 +4,7 @@ using BinaryBuilder
 
 # Collection of sources required to build MPCBuilder
 name = "mpc"
-version = "1.1.0"
+version = v"1.1.0"
 sources = [
     "https://ftp.gnu.org/gnu/mpc/mpc-$version.tar.gz" =>
     "6985c538143c1208dcb1ac42cedad6ff52e267b47e5f970183a3e75125b43c2e",
