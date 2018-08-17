@@ -3,7 +3,7 @@
 using BinaryBuilder
 
 # Collection of sources required to build MPCBuilder
-name = "mpc"
+name = "MPC"
 version = v"1.1.0"
 sources = [
     "https://ftp.gnu.org/gnu/mpc/mpc-$version.tar.gz" =>
@@ -14,30 +14,13 @@ sources = [
 
 script = """cd mpc-$version
 """*raw"""
-UNAME=`uname`
-if [[ ${UNAME} == MSYS_NT-6.3 ]]; then
-  ln -sf $prefix/bin/libgmp-10.dll $prefix/lib/libgmp.lib
-  ln -sf $prefix/bin/libmpfr-4.dll $prefix/lib/libmpfr.lib
-fi
 ./configure --prefix=$prefix --host=$target --enable-shared --disable-static --with-gmp=$prefix --with-mpfr=$prefix
-make -j
+make
 make install
-if [[ ${UNAME} == MSYS_NT-6.3 ]]; then
-  rm -f $prefix/lib/libgmp.lib
-  rm -f $prefix/lib/libmpfr.lib
-fi
 """
 # These are the platforms we will build for by default, unless further
 # platforms are passed in on the command line
-platforms = [
-    BinaryProvider.Linux(:aarch64, :glibc, :blank_abi),
-    BinaryProvider.Windows(:i686, :blank_libc, :blank_abi),
-    BinaryProvider.Linux(:armv7l, :glibc, :eabihf),
-    BinaryProvider.Windows(:x86_64, :blank_libc, :blank_abi),
-    BinaryProvider.Linux(:x86_64, :glibc, :blank_abi),
-    BinaryProvider.MacOS(:x86_64, :blank_libc, :blank_abi),
-    BinaryProvider.Linux(:i686, :glibc, :blank_abi)
-]
+platforms = suppported_platforms()
 
 # The products that we will ensure are always built
 products(prefix) = [
