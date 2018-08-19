@@ -29,8 +29,8 @@ products(prefix) = [
 
 # Dependencies that must be installed before this package can be built
 dependencies = [
-    "https://github.com/JuliaMath/GMPBuilder/releases/download/v6.1.2/build.jl"
-    "https://github.com/JuliaMath/MPFRBuilder/releases/download/v4.0.1/build.jl"
+    "https://github.com/JuliaMath/GMPBuilder/releases/download/v6.1.2-2/build_GMP.v6.1.2.jl"
+    "https://github.com/JuliaMath/MPFRBuilder/releases/download/v4.0.1-3/build_MPFR.v4.0.1.jl"
 ]
 
 # Build the tarballs, and possibly a `build.jl` as well.
